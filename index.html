@@ -30,16 +30,16 @@
  
     <script>
         // Listen for messages from ProtoPie
-        window.addEventListener('message', (event) => {
-            if (event.data && event.data.type === 'touch-event') {
-                const iframe = document.getElementById('spline-embed');
-                if (iframe) {
-                    // Forward the touch event to the Spline iframe
-                    iframe.contentWindow.postMessage({
-                        type: 'touch-event',
-                        x: event.data.x,
-                        y: event.data.y,
-                        eventType: event.data.eventType
+     
+window.addEventListener("message", function(event) {
+    let data = event.data;
+ 
+    if (data.x !== undefined) {  // Check if touchX data is received
+        let object = document.querySelector("canvas"); // Select the Spline scene
+        object.style.transform = `translateX(${data.x}px)`; // Move object
+    }
+});
+
                     }, '*');
                 }
             }
